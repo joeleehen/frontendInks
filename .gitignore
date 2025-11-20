@@ -1,8 +1,0 @@
-esling.config.js
-node_modules
-package-lock.json
-package.json
-*.config.js*
-tsconfig*
-vite.config.ts
-dist
