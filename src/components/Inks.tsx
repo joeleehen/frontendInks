@@ -30,7 +30,7 @@ function Inks() {
         const params = { hex: hexColor, limit: Number(limit) }
         try {
             const { data, status } = await api.get<Ink[]>(
-                '/inks', { params });
+                '/inks/', { params });
 
             if (status !== 200) {
                 console.error("Error querying API: status", status);
