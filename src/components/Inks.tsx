@@ -25,8 +25,13 @@ interface Ink {
 function Inks() {
     const [searchResults, setSearchResults] = useState<Ink[]>([]);
     const [searchFailed, setSearchFailed] = useState<boolean>(false);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
 
+    // NOTE: trying to write a quick little throbber with no internet
+    // and without being able to start react server
+    // using isSearching to control if we should render throbber
     const getInks = async ({ hexColor, limit }: GetInksProps ) => {
+        setIsSearching(true);
         const params = { hex: hexColor, limit: Number(limit) }
         try {
             const { data, status } = await api.get<Ink[]>(
@@ -44,6 +49,8 @@ function Inks() {
             console.error("Error searching inks:", error);
             setSearchFailed(true);
         }
+
+        setIsSearching(false);
     };
 
     return (
@@ -51,6 +58,15 @@ function Inks() {
             <h1>Search Inks by Color</h1>
             <div>
                 <ColorPicker getInks={getInks}/>
+                {/* TODO: there might be a cleaner way to write conditional render logic */}
+                <div className="throbber">
+                    { isSearching ? (
+                        <span>loading results...</span>
+                    ) : (
+                        <><</>
+                    )}
+                </div>
+
                 <div className="searchErrorNotif">
                     { searchFailed ? (
                         <span>There was an error querying the database!</span>
@@ -58,6 +74,7 @@ function Inks() {
                         <></>
                     )}
                 </div>
+
                 <div>
                     <hr/>
                     <Results searchResults={searchResults} />

@@ -16,8 +16,6 @@ interface Ink {
 
 function Results({ searchResults } : { searchResults: Ink[] }) {
 
-    console.log("from Results: is an array?", Array.isArray(searchResults), "of length",searchResults.length);
-
 
     return (
         <div className="results" style={{display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
