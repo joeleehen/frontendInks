@@ -63,7 +63,7 @@ function Inks() {
                     { isSearching ? (
                         <span>loading results...</span>
                     ) : (
-                        <><</>
+                        <></>
                     )}
                 </div>
 
