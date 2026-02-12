@@ -27,9 +27,17 @@ function Inks() {
     const [searchFailed, setSearchFailed] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    // NOTE: trying to write a quick little throbber with no internet
-    // and without being able to start react server
-    // using isSearching to control if we should render throbber
+    let throbberAfterStyle = {
+        overflow: "hidden",
+        display: "inline-block",
+        verticalAlign: "bottom",
+        WebkitAnimation: "ellipsis steps(4, end) 1000ms infinite",
+        animation: "ellipsis steps(4, end) 1000ms infinite",
+        position: "relative",
+        bottom: "-5px",
+        width: "0px",
+    }
+
     const getInks = async ({ hexColor, limit }: GetInksProps ) => {
         setIsSearching(true);
         const params = { hex: hexColor, limit: Number(limit) }
@@ -58,21 +66,17 @@ function Inks() {
             <h1>Search Inks by Color</h1>
             <div>
                 <ColorPicker getInks={getInks}/>
-                {/* TODO: there might be a cleaner way to write conditional render logic */}
                 <div className="throbber">
-                    { isSearching ? (
-                        <span>loading results...</span>
-                    ) : (
-                        <></>
-                    )}
+                    { isSearching && 
+                        <div className="throbber-container">
+                            <span>loading results</span>
+                            <div style={ throbberAfterStyle }>{"\u2026"}</div>
+                        </div>
+                    }
                 </div>
 
                 <div className="searchErrorNotif">
-                    { searchFailed ? (
-                        <span>There was an error querying the database!</span>
-                    ) : (
-                        <></>
-                    )}
+                    { searchFailed && <span>There was an error querying the database!</span>}
                 </div>
 
                 <div>
