@@ -27,11 +27,10 @@ function Inks() {
     const [searchFailed, setSearchFailed] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    let throbberAfterStyle = {
+    const throbberAfterStyle: React.CSSProperties = {
         overflow: "hidden",
         display: "inline-block",
         verticalAlign: "bottom",
-        WebkitAnimation: "ellipsis steps(4, end) 1000ms infinite",
         animation: "ellipsis steps(4, end) 1000ms infinite",
         position: "relative",
         bottom: "-5px",
@@ -70,7 +69,7 @@ function Inks() {
                     { isSearching && 
                         <div className="throbber-container">
                             <span>loading results</span>
-                            <div style={ throbberAfterStyle }>{"\u2026"}</div>
+                            <div style={throbberAfterStyle}>{"\u2026"}</div>
                         </div>
                     }
                 </div>
