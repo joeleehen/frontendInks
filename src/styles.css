@@ -31,6 +31,24 @@ input {
     padding: 0% 20px;
 }
 
+.throbber {
+    padding-left: 3%;
+    font-size: large;
+    font-family: 'M2cregular', Tahoma, sans-serif;
+}
+
+@keyframes ellipsis {
+    to {
+        width: 1.3rem;
+    }
+}
+
+@-webkit-keyframes ellipsis {
+    to {
+        width: 1.3rem;
+    }
+}
+
 button[type=submit] {
     display: block;
     box-sizing: border-box;

@@ -25,8 +25,20 @@ interface Ink {
 function Inks() {
     const [searchResults, setSearchResults] = useState<Ink[]>([]);
     const [searchFailed, setSearchFailed] = useState<boolean>(false);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+
+    const throbberAfterStyle: React.CSSProperties = {
+        overflow: "hidden",
+        display: "inline-block",
+        verticalAlign: "bottom",
+        animation: "ellipsis steps(4, end) 1000ms infinite",
+        position: "relative",
+        bottom: "-5px",
+        width: "0px",
+    }
 
     const getInks = async ({ hexColor, limit }: GetInksProps ) => {
+        setIsSearching(true);
         const params = { hex: hexColor, limit: Number(limit) }
         try {
             const { data, status } = await api.get<Ink[]>(
@@ -44,6 +56,8 @@ function Inks() {
             console.error("Error searching inks:", error);
             setSearchFailed(true);
         }
+
+        setIsSearching(false);
     };
 
     return (
@@ -51,13 +65,19 @@ function Inks() {
             <h1>Search Inks by Color</h1>
             <div>
                 <ColorPicker getInks={getInks}/>
-                <div className="searchErrorNotif">
-                    { searchFailed ? (
-                        <span>There was an error querying the database!</span>
-                    ) : (
-                        <></>
-                    )}
+                <div className="throbber">
+                    { isSearching && 
+                        <div className="throbber-container">
+                            <span>loading results</span>
+                            <div style={throbberAfterStyle}>{"\u2026"}</div>
+                        </div>
+                    }
                 </div>
+
+                <div className="searchErrorNotif">
+                    { searchFailed && <span>There was an error querying the database!</span>}
+                </div>
+
                 <div>
                     <hr/>
                     <Results searchResults={searchResults} />
