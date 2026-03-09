@@ -21,6 +21,7 @@ function InkResult({ ink: ink } : { ink: Ink }) {
         margin: "auto",
         display: "table",
         color: "white",
+        fontFamily: "M2cregular"
     }
 
     if (ink.lab[0] !== undefined) {
