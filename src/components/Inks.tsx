@@ -1,5 +1,7 @@
-import ColorPicker from "./ColorPicker.tsx"
-import Results from "./Results.tsx"
+import ColorPicker from "./ColorPicker.tsx";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ErrorFallback.tsx";
+import Results from "./Results.tsx";
 import { useState } from "react";
 import api from "../api.ts"
 
@@ -79,8 +81,10 @@ function Inks() {
                 </div>
 
                 <div>
-                    <hr/>
-                    <Results searchResults={searchResults} />
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <hr/>
+                        <Results searchResults={searchResults} />
+                    </ErrorBoundary>
                 </div>
             </div>
         </div>
