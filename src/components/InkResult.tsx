@@ -1,12 +1,6 @@
 interface Ink {
-    name: string;
-    id: string;
-    brand: string;
     review_url: string;
     image_url: string;
-    shimmer: string;
-    sheen: string;
-    shading: string;
     hex: string[];
     lab: number[][];
     distance: number
